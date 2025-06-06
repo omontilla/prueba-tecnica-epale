@@ -1,0 +1,66 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthResponse {
+  accessToken: String!
+  expiresIn: Float!
+}
+
+type Comment {
+  id: Int!
+  contentId: Int!
+  text: String!
+  moderated: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Content {
+  id: Int!
+  title: String!
+  description: String!
+  videoUrl: String!
+  thumbnailUrl: String
+  comments: [Comment!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Query {
+  getProfile: String!
+  getContent(id: Float!): Content!
+  getComments(contentId: Float!): [Comment!]!
+}
+
+type Mutation {
+  login(username: String!, password: String!): AuthResponse!
+  uploadVideo(input: UploadVideoInput!): Content!
+  updateContent(id: Float!, input: UpdateContentInput!): Content!
+  deleteContent(id: Float!): Boolean!
+  addComment(contentId: Float!, input: CreateCommentInput!): Comment!
+  moderateComment(commentId: Float!): Comment!
+}
+
+input UploadVideoInput {
+  video: Upload!
+  title: String!
+  description: String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input UpdateContentInput {
+  title: String
+  description: String
+}
+
+input CreateCommentInput {
+  text: String!
+}
