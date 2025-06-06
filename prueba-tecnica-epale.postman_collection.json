@@ -1,0 +1,358 @@
+{
+	"info": {
+		"_postman_id": "dd7a60e8-285f-4f17-b51d-02d66bdbdc9b",
+		"name": "prueba-tecnica-epale",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2683996"
+	},
+	"item": [
+		{
+			"name": "content",
+			"item": [
+				{
+					"name": "UploadVideo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "operations",
+									"value": "{\n  \"query\": \"mutation UploadVideo($video: Upload!, $title: String!, $description: String!) { uploadVideo(input: { video: $video, title: $title, description: $description }) { id title description videoUrl thumbnailUrl createdAt updatedAt } }\",\n  \"variables\": {\n    \"video\": null,\n    \"title\": \"Solicitud de guardado de video\",\n    \"description\": \"prueba\"\n  }\n}",
+									"type": "text"
+								},
+								{
+									"key": "map",
+									"value": "{ \"0\": [\"variables.video\"] }",
+									"type": "text"
+								},
+								{
+									"key": "0",
+									"type": "file",
+									"src": "/Users/omontilla/Downloads/81241-576082910_tiny.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Generated from cURL: curl localhost:3000/graphql \\\n  -F operations='{ \"query\": \"mutation UploadVideo($video: Upload!, $title: String!, $description: String!) { uploadVideo(input: { video: $video, title: $title, description: $description }) }\", \"variables\": { \"video\": null, \"title\": \"desde curl\", \"description\": \"prueba\" } }' \\\n  -F map='{ \"0\": [\"variables.video\"] }' \\\n  -F 0=@test.mp4"
+					},
+					"response": []
+				},
+				{
+					"name": "GetContent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetContent {\n  getContent(id: 69) {\n    id\n    title\n    description\n    videoUrl\n    thumbnailUrl\n    comments {\n      id\n      text\n      moderated\n      createdAt\n    }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateContent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateContent {\n  updateContent(\n    id: 6\n    input: {\n      title: \"Nuevo título\"\n      description: \"Descripción actualizada\"\n    }\n  ) {\n    id\n    title\n    description\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteContent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteContent {\n  deleteContent(id: 6)\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "getComments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetComments {\n  getComments(contentId: 69) {\n    id\n    text\n    moderated\n    createdAt\n    \n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddComment {\n  addComment(\n    contentId: 69\n    input: {\n      text: \"Este video está excelente\"\n    }\n  ) {\n    id\n    text\n    createdAt\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModerateComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ModerateComment {\n  moderateComment(commentId: 3) {\n    id\n    text\n    moderated\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const json = pm.response.json();",
+									"const token = json.data?.login?.accessToken;",
+									"",
+									"if (token) {",
+									"  pm.collectionVariables.set('token', token);",
+									"  console.log('🔐 Token guardado en variable de colección:', token);",
+									"} else {",
+									"  console.error('⚠️ No se encontró accessToken:', json);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Login {\n  login(username: \"omontilla\", password: \"1234\") {\n    accessToken\n    expiresIn\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/graphql",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:3000",
+			"type": "default"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
